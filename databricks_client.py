@@ -18,30 +18,46 @@ class DatabricksVolumeClient:
     def __init__(self, workspace_url: Optional[str] = None, token: Optional[str] = None):
         """
         Initialize the Databricks client.
+        For Databricks Apps, credentials are automatically handled by the runtime.
         
         Args:
-            workspace_url: Databricks workspace URL (optional, can be set via env var)
-            token: Databricks access token (optional, can be set via env var)
+            workspace_url: Databricks workspace URL (optional, for local development)
+            token: Databricks access token (optional, for local development)
         """
-        self.workspace_url = workspace_url or os.getenv('DATABRICKS_HOST')
-        self.token = token or os.getenv('DATABRICKS_TOKEN')
+        # Check if running in Databricks Apps environment
+        in_databricks_apps = os.getenv('DATABRICKS_APP_PORT') is not None
         
-        if not self.workspace_url:
-            raise ValueError("Databricks workspace URL must be provided via parameter or DATABRICKS_HOST environment variable")
-        
-        if not self.token:
-            raise ValueError("Databricks access token must be provided via parameter or DATABRICKS_TOKEN environment variable")
-        
-        # Initialize the Databricks SDK client
-        try:
-            self.client = WorkspaceClient(
-                host=self.workspace_url,
-                token=self.token
-            )
-            logger.info("Successfully initialized Databricks client")
-        except Exception as e:
-            logger.error(f"Failed to initialize Databricks client: {e}")
-            raise
+        if in_databricks_apps:
+            # In Databricks Apps, use default authentication (runtime context)
+            try:
+                self.client = WorkspaceClient()
+                self.workspace_url = "databricks-apps-runtime"
+                self.token = "runtime-context"
+                logger.info("Successfully initialized Databricks client using Apps runtime context")
+            except Exception as e:
+                logger.error(f"Failed to initialize Databricks client in Apps environment: {e}")
+                raise
+        else:
+            # For local development, use provided credentials or environment variables
+            self.workspace_url = workspace_url or os.getenv('DATABRICKS_HOST')
+            self.token = token or os.getenv('DATABRICKS_TOKEN')
+            
+            if not self.workspace_url:
+                raise ValueError("Databricks workspace URL must be provided via parameter or DATABRICKS_HOST environment variable")
+            
+            if not self.token:
+                raise ValueError("Databricks access token must be provided via parameter or DATABRICKS_TOKEN environment variable")
+            
+            # Initialize the Databricks SDK client with explicit credentials
+            try:
+                self.client = WorkspaceClient(
+                    host=self.workspace_url,
+                    token=self.token
+                )
+                logger.info("Successfully initialized Databricks client with provided credentials")
+            except Exception as e:
+                logger.error(f"Failed to initialize Databricks client: {e}")
+                raise
     
     def test_connection(self) -> Tuple[bool, str]:
         """
@@ -896,17 +912,19 @@ def write_to_databricks_volume(xml_content: str, volume_path: str,
                               token: Optional[str] = None) -> Tuple[bool, str]:
     """
     Convenience function to write XML content to a Databricks volume.
+    For Databricks Apps, credentials are automatically handled.
     
     Args:
         xml_content: The XML content to write
         volume_path: The full path to the file in the volume
-        workspace_url: Databricks workspace URL (optional)
-        token: Databricks access token (optional)
+        workspace_url: Databricks workspace URL (optional, for local development)
+        token: Databricks access token (optional, for local development)
     
     Returns:
         Tuple[bool, str]: (success, message)
     """
     try:
+        # Initialize client (will automatically detect Databricks Apps environment)
         client = DatabricksVolumeClient(workspace_url=workspace_url, token=token)
         
         # Test connection first
@@ -961,17 +979,19 @@ def create_schema_and_tables(catalog_name: str, schema_name: str,
                            token: Optional[str] = None) -> Tuple[bool, str]:
     """
     Create the schema and tables for the ValNav data model in Unity Catalog.
+    For Databricks Apps, credentials are automatically handled.
     
     Args:
         catalog_name: Name of the Unity Catalog
         schema_name: Name of the schema to create
-        workspace_url: Databricks workspace URL (optional)
-        token: Databricks access token (optional)
+        workspace_url: Databricks workspace URL (optional, for local development)
+        token: Databricks access token (optional, for local development)
     
     Returns:
         Tuple[bool, str]: (success, message)
     """
     try:
+        # Initialize client (will automatically detect Databricks Apps environment)
         client = DatabricksVolumeClient(workspace_url=workspace_url, token=token)
         
         # Test connection first

@@ -1,0 +1,8 @@
+command: ["python", "app.py"]
+
+env:
+  # Dash/Flask specific environment variables
+  DASH_ENV: "production"
+  
+  # Databricks Apps will automatically set DATABRICKS_APP_PORT
+  # Our app will read this to bind to the correct port 
