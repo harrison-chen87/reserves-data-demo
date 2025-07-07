@@ -1,8 +1,9 @@
-command: ["python", "app.py"]
+name: definitely-not-valnav-generator
+description: Synthetic Definitely-Not-ValNav Data Generator - A web application for generating synthetic energy/reserves data and writing to Databricks Unity Catalog
+
+command:
+  - python
+  - app.py
 
 env:
-  # Dash/Flask specific environment variables
-  DASH_ENV: "production"
-  
-  # Databricks Apps will automatically set DATABRICKS_APP_PORT
-  # Our app will read this to bind to the correct port 
+  DASH_ENV: production 
