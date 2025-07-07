@@ -697,7 +697,7 @@ class DatabricksVolumeClient:
                 price_deck_id = price_deck.get('ID', '')
                 
                 for commodity in price_deck.findall('PriceCommodity'):
-                    commodity_name = commodity.get('Name', '')
+                    commodity_name = commodity.get('Commodity', '')
                     unit = commodity.get('Unit', '')
                     
                     for annual_price in commodity.findall('AnnualPrice'):
