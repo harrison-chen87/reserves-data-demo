@@ -1,0 +1,27 @@
+# Databricks Configuration Example
+# Copy this content to a file named .env in the project root
+
+# Your Databricks workspace URL
+DATABRICKS_HOST=https://your-workspace.cloud.databricks.com
+
+# Your Databricks personal access token
+DATABRICKS_TOKEN=your-personal-access-token-here
+
+# Optional: Uncomment and set default values for the UI
+# DEFAULT_VOLUME_PATH=/Volumes/your_catalog/your_schema/your_volume/
+# DEFAULT_CATALOG=your_catalog
+# DEFAULT_SCHEMA=your_schema
+
+# Instructions:
+# 1. Copy this file to .env (remove the .txt extension)
+# 2. Replace the placeholder values with your actual Databricks credentials
+# 3. Restart the app to load the new environment variables
+
+# To get your personal access token:
+# 1. Go to your Databricks workspace
+# 2. Click on your profile icon in the top right
+# 3. Select "User Settings"
+# 4. Go to "Developer" tab
+# 5. Click "Manage" next to "Access tokens"
+# 6. Generate a new token
+# 7. Copy the token and paste it here 

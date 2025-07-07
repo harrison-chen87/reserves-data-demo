@@ -1,0 +1,22 @@
+# Databricks Configuration Template
+# Copy these environment variables and set them in your shell or .env file
+
+# Your Databricks workspace URL
+export DATABRICKS_HOST=https://your-workspace.cloud.databricks.com
+
+# Your Databricks personal access token
+export DATABRICKS_TOKEN=your-personal-access-token-here
+
+# Instructions:
+# 1. Replace the placeholder values with your actual Databricks configuration
+# 2. Run these export commands in your terminal, or
+# 3. Add them to your .bashrc/.zshrc file, or
+# 4. Create a .env file with these values (without the 'export' prefix)
+
+# To get your personal access token:
+# 1. Go to your Databricks workspace
+# 2. Click on your profile icon in the top right
+# 3. Select "User Settings"
+# 4. Go to "Developer" tab  
+# 5. Click "Manage" next to "Access tokens"
+# 6. Generate a new token 

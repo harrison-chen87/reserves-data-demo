@@ -1,0 +1,15 @@
+# Core Dash dependencies
+dash==2.17.1
+dash-bootstrap-components==1.5.0
+plotly==5.17.0
+
+# Databricks SDK
+databricks-sdk==0.20.0
+databricks-sql-connector==3.0.0
+
+# Additional dependencies
+requests==2.31.0
+urllib3==2.0.7
+
+# Optional: For better error handling and logging
+python-dotenv==1.0.0 
