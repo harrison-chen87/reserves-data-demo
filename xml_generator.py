@@ -5,9 +5,7 @@ def generate_synthetic_valnav_xml(num_wells=250, num_facilities=15, num_scenario
                                  num_price_decks=3, num_companies=5, num_countries=8, 
                                  num_currencies=8, num_fiscal_regimes=3, num_meter_stations=0,
                                  num_transportation_areas=0, num_type_wells=0, num_tax_pools=0,
-                                 num_batch_definitions=0, num_change_record_categories=0,
-                                 num_custom_data_fields=0, num_hierarchies=0, num_rollups=0,
-                                 history_months=24, schedule_coverage=0.7):
+                                 num_rollups=0, history_months=24, schedule_coverage=0.7):
     """
     Generates a synthetic XML dataset replicating oil reserve evaluation data.
 
@@ -24,10 +22,6 @@ def generate_synthetic_valnav_xml(num_wells=250, num_facilities=15, num_scenario
         num_transportation_areas (int): The number of transport regions to generate.
         num_type_wells (int): The number of well templates to generate.
         num_tax_pools (int): The number of tax calculation pools to generate.
-        num_batch_definitions (int): The number of batch processing configs to generate.
-        num_change_record_categories (int): The number of change tracking types to generate.
-        num_custom_data_fields (int): The number of user-defined fields to generate.
-        num_hierarchies (int): The number of organizational structures to generate.
         num_rollups (int): The number of summary aggregations to generate.
         history_months (int): Number of months of production history to generate.
         schedule_coverage (float): Percentage of wells with production schedules (0.0-1.0).
@@ -351,62 +345,6 @@ def generate_synthetic_valnav_xml(num_wells=250, num_facilities=15, num_scenario
             
             xml_parts.append(f'    <TaxPool ID="{pool_id}" Name="{pool_name}" Type="{pool_type}" Balance="{balance}"/>')
         xml_parts.append('  </TaxPools>')
-
-    # --- Generate Batch Definitions ---
-    if num_batch_definitions > 0:
-        xml_parts.append('  <BatchDefinitions>')
-        batch_types = ["Daily", "Weekly", "Monthly", "Quarterly", "Annual"]
-        
-        for i in range(1, num_batch_definitions + 1):
-            batch_id = f"BATCH-{i:03d}"
-            batch_name = f"Batch Definition {i}"
-            batch_type = random.choice(batch_types)
-            frequency = random.choice(["1", "2", "4", "12", "52"])
-            
-            xml_parts.append(f'    <BatchDefinition ID="{batch_id}" Name="{batch_name}" Type="{batch_type}" Frequency="{frequency}"/>')
-        xml_parts.append('  </BatchDefinitions>')
-
-    # --- Generate Change Record Categories ---
-    if num_change_record_categories > 0:
-        xml_parts.append('  <ChangeRecordCategories>')
-        change_types = ["Reserves", "Production", "Facility", "Economic", "Regulatory"]
-        
-        for i in range(1, num_change_record_categories + 1):
-            category_id = f"CHNG-{i:03d}"
-            category_name = f"Change Category {i}"
-            change_type = random.choice(change_types)
-            approval_required = random.choice(["true", "false"])
-            
-            xml_parts.append(f'    <ChangeRecordCategory ID="{category_id}" Name="{category_name}" Type="{change_type}" ApprovalRequired="{approval_required}"/>')
-        xml_parts.append('  </ChangeRecordCategories>')
-
-    # --- Generate Custom Data Fields ---
-    if num_custom_data_fields > 0:
-        xml_parts.append('  <CustomDataFields>')
-        field_types = ["String", "Number", "Date", "Boolean", "Dropdown"]
-        
-        for i in range(1, num_custom_data_fields + 1):
-            field_id = f"CUSTOM-{i:03d}"
-            field_name = f"Custom Field {i}"
-            field_type = random.choice(field_types)
-            required = random.choice(["true", "false"])
-            
-            xml_parts.append(f'    <CustomDataField ID="{field_id}" Name="{field_name}" Type="{field_type}" Required="{required}"/>')
-        xml_parts.append('  </CustomDataFields>')
-
-    # --- Generate Hierarchies ---
-    if num_hierarchies > 0:
-        xml_parts.append('  <Hierarchies>')
-        hierarchy_types = ["Geographic", "Operational", "Financial", "Regulatory", "Technical"]
-        
-        for i in range(1, num_hierarchies + 1):
-            hierarchy_id = f"HIER-{i:03d}"
-            hierarchy_name = f"Hierarchy {i}"
-            hierarchy_type = random.choice(hierarchy_types)
-            levels = random.randint(2, 6)
-            
-            xml_parts.append(f'    <Hierarchy ID="{hierarchy_id}" Name="{hierarchy_name}" Type="{hierarchy_type}" Levels="{levels}"/>')
-        xml_parts.append('  </Hierarchies>')
 
     # --- Generate Rollups ---
     if num_rollups > 0:

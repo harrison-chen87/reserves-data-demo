@@ -230,58 +230,6 @@ COMMENT 'Tax pools for depletion and depreciation'
 print("✅ Tax pools table created/verified")
 
 # COMMAND ----------
-# Batch definitions table
-spark.sql(f"""
-CREATE TABLE IF NOT EXISTS {catalog_name}.{schema_name}.batch_definitions (
-    BatchDefinitionID STRING,
-    BatchDefinitionName STRING,
-    BatchType STRING,
-    Frequency STRING
-) USING DELTA
-COMMENT 'Batch processing definitions'
-""")
-print("✅ Batch definitions table created/verified")
-
-# COMMAND ----------
-# Change record categories table
-spark.sql(f"""
-CREATE TABLE IF NOT EXISTS {catalog_name}.{schema_name}.change_record_categories (
-    CategoryID STRING,
-    CategoryName STRING,
-    ChangeType STRING,
-    ApprovalRequired BOOLEAN
-) USING DELTA
-COMMENT 'Change record categories for audit trails'
-""")
-print("✅ Change record categories table created/verified")
-
-# COMMAND ----------
-# Custom data fields table
-spark.sql(f"""
-CREATE TABLE IF NOT EXISTS {catalog_name}.{schema_name}.custom_data_fields (
-    CustomDataFieldID STRING,
-    CustomDataFieldName STRING,
-    FieldType STRING,
-    Required BOOLEAN
-) USING DELTA
-COMMENT 'Custom data field definitions'
-""")
-print("✅ Custom data fields table created/verified")
-
-# COMMAND ----------
-# Hierarchies table
-spark.sql(f"""
-CREATE TABLE IF NOT EXISTS {catalog_name}.{schema_name}.hierarchies (
-    HierarchyID STRING,
-    HierarchyName STRING,
-    HierarchyType STRING,
-    Levels INTEGER
-) USING DELTA
-COMMENT 'Organizational hierarchies'
-""")
-print("✅ Hierarchies table created/verified")
-
-# COMMAND ----------
 # Rollups table
 spark.sql(f"""
 CREATE TABLE IF NOT EXISTS {catalog_name}.{schema_name}.rollups (

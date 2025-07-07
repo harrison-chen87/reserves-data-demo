@@ -611,10 +611,7 @@ class DatabricksVolumeClient:
                 'TransportationAreas': 'transportation_areas',
                 'TypeWells': 'type_wells',
                 'TaxPools': 'tax_pools',
-                'BatchDefinitions': 'batch_definitions',
-                'ChangeRecordCategories': 'change_record_categories',
-                'CustomDataFields': 'custom_data_fields',
-                'Hierarchies': 'hierarchies',
+                
                 'Rollups': 'rollups'
             }
             
@@ -719,10 +716,7 @@ class DatabricksVolumeClient:
             'transportation_areas': f"CREATE TABLE IF NOT EXISTS {catalog_name}.{schema_name}.transportation_areas (TransportationAreaID STRING, TransportationAreaName STRING, TransportType STRING, Capacity INTEGER) USING DELTA",
             'type_wells': f"CREATE TABLE IF NOT EXISTS {catalog_name}.{schema_name}.type_wells (TypeWellID STRING, TypeWellName STRING, Category STRING, DrillingDays INTEGER, CompletionCost INTEGER) USING DELTA",
             'tax_pools': f"CREATE TABLE IF NOT EXISTS {catalog_name}.{schema_name}.tax_pools (TaxPoolID STRING, TaxPoolName STRING, TaxPoolType STRING, Balance DOUBLE) USING DELTA",
-            'batch_definitions': f"CREATE TABLE IF NOT EXISTS {catalog_name}.{schema_name}.batch_definitions (BatchDefinitionID STRING, BatchDefinitionName STRING, BatchType STRING, Frequency STRING) USING DELTA",
-            'change_record_categories': f"CREATE TABLE IF NOT EXISTS {catalog_name}.{schema_name}.change_record_categories (CategoryID STRING, CategoryName STRING, ChangeType STRING, ApprovalRequired BOOLEAN) USING DELTA",
-            'custom_data_fields': f"CREATE TABLE IF NOT EXISTS {catalog_name}.{schema_name}.custom_data_fields (CustomDataFieldID STRING, CustomDataFieldName STRING, FieldType STRING, Required BOOLEAN) USING DELTA",
-            'hierarchies': f"CREATE TABLE IF NOT EXISTS {catalog_name}.{schema_name}.hierarchies (HierarchyID STRING, HierarchyName STRING, HierarchyType STRING, Levels INTEGER) USING DELTA",
+
             'rollups': f"CREATE TABLE IF NOT EXISTS {catalog_name}.{schema_name}.rollups (RollupID STRING, RollupName STRING, RollupType STRING, Frequency STRING) USING DELTA"
         }
         
@@ -816,18 +810,6 @@ class DatabricksVolumeClient:
             elif entity_name == 'tax_pools':
                 return f"'{record.get('ID', '')}', '{record.get('Name', '')}', '{record.get('Type', '')}', {record.get('Balance', 0)}"
             
-            elif entity_name == 'batch_definitions':
-                return f"'{record.get('ID', '')}', '{record.get('Name', '')}', '{record.get('Type', '')}', '{record.get('Frequency', '')}'"
-            
-            elif entity_name == 'change_record_categories':
-                return f"'{record.get('ID', '')}', '{record.get('Name', '')}', '{record.get('Type', '')}', {record.get('ApprovalRequired', False)}"
-            
-            elif entity_name == 'custom_data_fields':
-                return f"'{record.get('ID', '')}', '{record.get('Name', '')}', '{record.get('Type', '')}', {record.get('Required', False)}"
-            
-            elif entity_name == 'hierarchies':
-                return f"'{record.get('ID', '')}', '{record.get('Name', '')}', '{record.get('Type', '')}', {record.get('Levels', 0)}"
-            
             elif entity_name == 'rollups':
                 return f"'{record.get('ID', '')}', '{record.get('Name', '')}', '{record.get('Type', '')}', '{record.get('Frequency', '')}'"
             
@@ -866,10 +848,7 @@ class DatabricksVolumeClient:
             'transportation_areas': 'TransportationAreaID, TransportationAreaName, TransportType, Capacity',
             'type_wells': 'TypeWellID, TypeWellName, Category, DrillingDays, CompletionCost',
             'tax_pools': 'TaxPoolID, TaxPoolName, TaxPoolType, Balance',
-            'batch_definitions': 'BatchDefinitionID, BatchDefinitionName, BatchType, Frequency',
-            'change_record_categories': 'CategoryID, CategoryName, ChangeType, ApprovalRequired',
-            'custom_data_fields': 'CustomDataFieldID, CustomDataFieldName, FieldType, Required',
-            'hierarchies': 'HierarchyID, HierarchyName, HierarchyType, Levels',
+
             'rollups': 'RollupID, RollupName, RollupType, Frequency'
         }
         return column_mappings.get(entity_name, '')
@@ -904,14 +883,6 @@ class DatabricksVolumeClient:
             f"CREATE TABLE IF NOT EXISTS {catalog_name}.{schema_name}.type_wells (TypeWellID STRING, TypeWellName STRING, Category STRING, DrillingDays INTEGER, CompletionCost INTEGER) USING DELTA",
             
             f"CREATE TABLE IF NOT EXISTS {catalog_name}.{schema_name}.tax_pools (TaxPoolID STRING, TaxPoolName STRING, TaxPoolType STRING, Balance DOUBLE) USING DELTA",
-            
-            f"CREATE TABLE IF NOT EXISTS {catalog_name}.{schema_name}.batch_definitions (BatchDefinitionID STRING, BatchDefinitionName STRING, BatchType STRING, Frequency STRING) USING DELTA",
-            
-            f"CREATE TABLE IF NOT EXISTS {catalog_name}.{schema_name}.change_record_categories (CategoryID STRING, CategoryName STRING, ChangeType STRING, ApprovalRequired BOOLEAN) USING DELTA",
-            
-            f"CREATE TABLE IF NOT EXISTS {catalog_name}.{schema_name}.custom_data_fields (CustomDataFieldID STRING, CustomDataFieldName STRING, FieldType STRING, Required BOOLEAN) USING DELTA",
-            
-            f"CREATE TABLE IF NOT EXISTS {catalog_name}.{schema_name}.hierarchies (HierarchyID STRING, HierarchyName STRING, HierarchyType STRING, Levels INTEGER) USING DELTA",
             
             f"CREATE TABLE IF NOT EXISTS {catalog_name}.{schema_name}.rollups (RollupID STRING, RollupName STRING, RollupType STRING, Frequency STRING) USING DELTA"
         ]

@@ -8,7 +8,7 @@ A Dash web application for generating synthetic ValNav well data and writing it 
 - **🧪 Connection Testing**: Verify Databricks connectivity before data generation
 - **🗄️ Schema & Table Creation**: Create Unity Catalog schema and tables with one click
 - **🎛️ Interactive Web UI**: Easy-to-use interface for specifying data generation parameters
-- **⚙️ Comprehensive Data Model**: Full ValNav data model with 19+ configurable entity types
+- **⚙️ Comprehensive Data Model**: Full ValNav data model with 15 configurable entity types
 - **🔧 Flexible Configuration**: Control count for each entity type (0 to max) including wells, facilities, scenarios, companies, fiscal regimes, meter stations, and more
 - **🔗 Databricks Integration**: Direct integration with Databricks Unity Catalog volumes
 - **👀 Real-time Preview**: Preview generated XML structure before writing to volume
@@ -94,11 +94,7 @@ The application now supports the complete ValNav data model with comprehensive c
 - **Type Wells**: Well templates (0-100)
 - **Tax Pools**: Tax calculation pools (0-50)
 
-#### ⚙️ Advanced Configuration
-- **Batch Definitions**: Batch processing configs (0-30)
-- **Change Record Categories**: Change tracking types (0-20)
-- **Custom Data Fields**: User-defined fields (0-50)
-- **Hierarchies**: Organizational structures (0-10)
+
 
 #### 📈 Production & Scheduling
 - **Production History**: Months of history per well (1-120)
@@ -176,18 +172,7 @@ The application generates comprehensive XML with the complete ValNav data model 
   <TaxPools>
     <TaxPool/>
   </TaxPools>
-  <BatchDefinitions>
-    <BatchDefinition/>
-  </BatchDefinitions>
-  <ChangeRecordCategories>
-    <ChangeRecordCategory/>
-  </ChangeRecordCategories>
-  <CustomDataFields>
-    <CustomDataField/>
-  </CustomDataFields>
-  <Hierarchies>
-    <Hierarchy/>
-  </Hierarchies>
+
   <Rollups>
     <Rollup/>
   </Rollups>
@@ -202,7 +187,7 @@ The app can automatically create the Unity Catalog schema and tables with the **
 
 #### Tables Created:
 
-The application creates a comprehensive set of tables matching the complete ValNav data model:
+The application creates a comprehensive set of 15 tables matching the core ValNav data model:
 
 ##### Core Entity Tables:
 1. **`wells`**: Well data with IDs, names, types, facilities, production rates, wellbore and reservoir data
@@ -224,12 +209,8 @@ The application creates a comprehensive set of tables matching the complete ValN
 13. **`type_wells`**: Type well templates and drilling parameters
 14. **`tax_pools`**: Tax pools for depletion and depreciation
 
-##### Advanced Configuration Tables:
-15. **`batch_definitions`**: Batch processing definitions
-16. **`change_record_categories`**: Change record categories for audit trails
-17. **`custom_data_fields`**: Custom data field definitions
-18. **`hierarchies`**: Organizational hierarchies
-19. **`rollups`**: Summary rollup definitions
+##### Production & Scheduling Tables:
+15. **`rollups`**: Summary rollup definitions
 
 #### Schema Creation Process:
 

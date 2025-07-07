@@ -217,66 +217,6 @@ app.layout = dbc.Container([
                         ], width=3)
                     ], className="mb-3"),
                     
-                    # Advanced Configuration
-                    html.H6("⚙️ Advanced Configuration", className="mb-2"),
-                    dbc.Row([
-                        dbc.Col([
-                            dbc.Label("Batch Definitions", html_for="batch-definitions-input"),
-                            dbc.Input(
-                                id="batch-definitions-input",
-                                type="number",
-                                value=0,
-                                min=0,
-                                max=30,
-                                step=1,
-                                placeholder="0-30"
-                            ),
-                            dbc.FormText("Batch processing configs (0-30)")
-                        ], width=3),
-                        
-                        dbc.Col([
-                            dbc.Label("Change Record Categories", html_for="change-record-categories-input"),
-                            dbc.Input(
-                                id="change-record-categories-input",
-                                type="number",
-                                value=0,
-                                min=0,
-                                max=20,
-                                step=1,
-                                placeholder="0-20"
-                            ),
-                            dbc.FormText("Change tracking types (0-20)")
-                        ], width=3),
-                        
-                        dbc.Col([
-                            dbc.Label("Custom Data Fields", html_for="custom-data-fields-input"),
-                            dbc.Input(
-                                id="custom-data-fields-input",
-                                type="number",
-                                value=0,
-                                min=0,
-                                max=50,
-                                step=1,
-                                placeholder="0-50"
-                            ),
-                            dbc.FormText("User-defined fields (0-50)")
-                        ], width=3),
-                        
-                        dbc.Col([
-                            dbc.Label("Hierarchies", html_for="hierarchies-input"),
-                            dbc.Input(
-                                id="hierarchies-input",
-                                type="number",
-                                value=0,
-                                min=0,
-                                max=10,
-                                step=1,
-                                placeholder="0-10"
-                            ),
-                            dbc.FormText("Organizational structures (0-10)")
-                        ], width=3)
-                    ], className="mb-3"),
-                    
                     # Production & Scheduling
                     html.H6("📈 Production & Scheduling", className="mb-2"),
                     dbc.Row([
@@ -683,10 +623,6 @@ def create_schema_and_tables_callback(n_clicks, workspace_url, access_token, cat
      State("transportation-areas-input", "value"),
      State("type-wells-input", "value"),
      State("tax-pools-input", "value"),
-     State("batch-definitions-input", "value"),
-     State("change-record-categories-input", "value"),
-     State("custom-data-fields-input", "value"),
-     State("hierarchies-input", "value"),
      State("rollups-input", "value"),
      State("history-input", "value"),
      State("schedule-coverage-input", "value"),
@@ -701,9 +637,7 @@ def create_schema_and_tables_callback(n_clicks, workspace_url, access_token, cat
 def generate_and_write_xml(n_clicks, num_wells, num_facilities, num_scenarios, 
                           num_price_decks, num_companies, num_countries, num_currencies,
                           num_fiscal_regimes, num_meter_stations, num_transportation_areas,
-                          num_type_wells, num_tax_pools, num_batch_definitions, 
-                          num_change_record_categories, num_custom_data_fields,
-                          num_hierarchies, num_rollups, history_months, schedule_coverage,
+                          num_type_wells, num_tax_pools, num_rollups, history_months, schedule_coverage,
                           workspace_url, access_token, volume_path, filename, 
                           catalog_name, schema_name):
     if not n_clicks:
@@ -735,10 +669,6 @@ def generate_and_write_xml(n_clicks, num_wells, num_facilities, num_scenarios,
             num_transportation_areas=num_transportation_areas,
             num_type_wells=num_type_wells,
             num_tax_pools=num_tax_pools,
-            num_batch_definitions=num_batch_definitions,
-            num_change_record_categories=num_change_record_categories,
-            num_custom_data_fields=num_custom_data_fields,
-            num_hierarchies=num_hierarchies,
             num_rollups=num_rollups,
             history_months=history_months,
             schedule_coverage=schedule_coverage/100
@@ -801,10 +731,6 @@ def generate_and_write_xml(n_clicks, num_wells, num_facilities, num_scenarios,
      State("transportation-areas-input", "value"),
      State("type-wells-input", "value"),
      State("tax-pools-input", "value"),
-     State("batch-definitions-input", "value"),
-     State("change-record-categories-input", "value"),
-     State("custom-data-fields-input", "value"),
-     State("hierarchies-input", "value"),
      State("rollups-input", "value"),
      State("history-input", "value"),
      State("schedule-coverage-input", "value")],
@@ -813,9 +739,7 @@ def generate_and_write_xml(n_clicks, num_wells, num_facilities, num_scenarios,
 def preview_xml(n_clicks, num_wells, num_facilities, num_scenarios, 
                 num_price_decks, num_companies, num_countries, num_currencies,
                 num_fiscal_regimes, num_meter_stations, num_transportation_areas,
-                num_type_wells, num_tax_pools, num_batch_definitions, 
-                num_change_record_categories, num_custom_data_fields,
-                num_hierarchies, num_rollups, history_months, schedule_coverage):
+                num_type_wells, num_tax_pools, num_rollups, history_months, schedule_coverage):
     if not n_clicks:
         return "", False
     
@@ -834,10 +758,6 @@ def preview_xml(n_clicks, num_wells, num_facilities, num_scenarios,
             num_transportation_areas=min(1, num_transportation_areas or 0),
             num_type_wells=min(1, num_type_wells or 0),
             num_tax_pools=min(1, num_tax_pools or 0),
-            num_batch_definitions=min(1, num_batch_definitions or 0),
-            num_change_record_categories=min(1, num_change_record_categories or 0),
-            num_custom_data_fields=min(2, num_custom_data_fields or 0),
-            num_hierarchies=min(1, num_hierarchies or 0),
             num_rollups=min(1, num_rollups or 0),
             history_months=min(6, history_months or 6),
             schedule_coverage=0.5
