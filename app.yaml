@@ -1,9 +1,4 @@
-name: definitely-not-valnav-generator
-description: Synthetic Definitely-Not-ValNav Data Generator - A web application for generating synthetic energy/reserves data and writing to Databricks Unity Catalog
-
-command:
-  - python
-  - app.py
-
-env:
-  DASH_ENV: production 
+command: [
+  "python",
+  "app.py"
+] 
